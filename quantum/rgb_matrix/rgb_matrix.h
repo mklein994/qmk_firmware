@@ -22,6 +22,9 @@
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
 #include "color.h"
+#ifdef OPENRGB_ENABLE
+#    include "openrgb.h"
+#endif
 #include "keyboard.h"
 
 #if defined(RGB_MATRIX_IS31FL3218)

@@ -230,7 +230,7 @@ bool kc_raw_hid_rx(uint8_t *data, uint8_t length) {
 bool via_command_kb(uint8_t *data, uint8_t length) {
     return kc_raw_hid_rx(data, length);
 }
-#else
+#elif !defined(OPENRGB_ENABLE)
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     kc_raw_hid_rx(data, length);
 }
