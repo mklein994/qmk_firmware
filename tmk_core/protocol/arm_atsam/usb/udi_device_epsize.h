@@ -21,7 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYBOARD_EPSIZE 8
 #define MOUSE_EPSIZE 16
 #define EXTRAKEY_EPSIZE 8
-#define RAW_EPSIZE 64
+#ifdef OPENRGB_ENABLE
+#    define RAW_EPSIZE 64
+#else
+#    define RAW_EPSIZE 32
+#endif
 #define CONSOLE_EPSIZE 32
 #define NKRO_EPSIZE 32
 #define MIDI_STREAM_EPSIZE 64

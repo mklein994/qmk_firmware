@@ -43,7 +43,7 @@ static const uint8_t openrgb_rgb_matrix_effects_indexes[]           = {
     1, // OpenRGB always defines "Direct" mode as the first entry
     2, // This one seems to be in the right spot in OpenRGB, so leave it enabled. It also provides a quick way to stop a rogue OpenRGB animation.
 };
-static uint8_t raw_hid_buffer[RAW_EPSIZE];
+static uint8_t raw_hid_buffer[OPENRGB_EPSIZE];
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     switch (*data) {
@@ -78,9 +78,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     }
 
     if (*data != OPENRGB_DIRECT_MODE_SET_LEDS) {
-        raw_hid_buffer[RAW_EPSIZE - 1] = OPENRGB_END_OF_MESSAGE;
-        raw_hid_send(raw_hid_buffer, RAW_EPSIZE);
-        memset(raw_hid_buffer, 0x00, RAW_EPSIZE);
+        raw_hid_buffer[OPENRGB_EPSIZE - 1] = OPENRGB_END_OF_MESSAGE;
+        raw_hid_send(raw_hid_buffer, OPENRGB_EPSIZE);
+        memset(raw_hid_buffer, 0x00, OPENRGB_EPSIZE);
     }
 }
 
@@ -91,7 +91,7 @@ void openrgb_get_protocol_version(void) {
 void openrgb_get_qmk_version(void) {
     raw_hid_buffer[0]    = OPENRGB_GET_QMK_VERSION;
     uint8_t current_byte = 1;
-    for (uint8_t i = 0; (current_byte < (RAW_EPSIZE - 2)) && (QMK_VERSION[i] != 0); i++) {
+    for (uint8_t i = 0; (current_byte < (OPENRGB_EPSIZE - 2)) && (QMK_VERSION[i] != 0); i++) {
         raw_hid_buffer[current_byte] = QMK_VERSION[i];
         current_byte++;
     }
@@ -111,14 +111,14 @@ void openrgb_get_device_info(void) {
 #endif
 
     uint8_t current_byte = 3;
-    for (uint8_t i = 0; (current_byte < ((RAW_EPSIZE - 2) / 2)) && (PRODUCT_STRING[i] != 0); i++) {
+    for (uint8_t i = 0; (current_byte < ((OPENRGB_EPSIZE - 2) / 2)) && (PRODUCT_STRING[i] != 0); i++) {
         raw_hid_buffer[current_byte] = PRODUCT_STRING[i];
         current_byte++;
     }
     raw_hid_buffer[current_byte] = 0;
     current_byte++;
 
-    for (uint8_t i = 0; (current_byte + 2 < RAW_EPSIZE) && (MANUFACTURER_STRING[i] != 0); i++) {
+    for (uint8_t i = 0; (current_byte + 2 < OPENRGB_EPSIZE) && (MANUFACTURER_STRING[i] != 0); i++) {
         raw_hid_buffer[current_byte] = MANUFACTURER_STRING[i];
         current_byte++;
     }
@@ -198,7 +198,7 @@ void openrgb_set_mode(uint8_t *data) {
     raw_hid_buffer[0] = OPENRGB_SET_MODE;
 
     if (h > 255 || s > 255 || v > 255 || mode >= RGB_MATRIX_EFFECT_MAX || speed > 255) {
-        raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_FAILURE;
+        raw_hid_buffer[OPENRGB_EPSIZE - 2] = OPENRGB_FAILURE;
         return;
     }
 
@@ -213,7 +213,7 @@ void openrgb_set_mode(uint8_t *data) {
         rgb_matrix_sethsv_noeeprom(h, s, v);
     }
 
-    raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_SUCCESS;
+    raw_hid_buffer[OPENRGB_EPSIZE - 2] = OPENRGB_SUCCESS;
 }
 void openrgb_direct_mode_set_single_led(uint8_t *data) {
     const uint8_t led = data[1];
@@ -224,7 +224,7 @@ void openrgb_direct_mode_set_single_led(uint8_t *data) {
     raw_hid_buffer[0] = OPENRGB_DIRECT_MODE_SET_SINGLE_LED;
 
     if (led >= RGB_MATRIX_LED_COUNT || r > 255 || g > 255 || b > 255) {
-        raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_FAILURE;
+        raw_hid_buffer[OPENRGB_EPSIZE - 2] = OPENRGB_FAILURE;
         return;
     }
 
@@ -232,7 +232,7 @@ void openrgb_direct_mode_set_single_led(uint8_t *data) {
     g_openrgb_direct_mode_colors[led].g = g;
     g_openrgb_direct_mode_colors[led].b = b;
 
-    raw_hid_buffer[RAW_EPSIZE - 2] = OPENRGB_SUCCESS;
+    raw_hid_buffer[OPENRGB_EPSIZE - 2] = OPENRGB_SUCCESS;
 }
 void openrgb_direct_mode_set_leds(uint8_t *data) {
     const uint8_t number_leds = data[1];
