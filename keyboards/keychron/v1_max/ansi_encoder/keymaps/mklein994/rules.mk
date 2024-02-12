@@ -1,2 +1,5 @@
 # VIA_ENABLE = yes
 OPENRGB_ENABLE = yes
+
+# CONSOLE_ENABLE = yes
+# KEYBOARD_SHARED_EP = yes
