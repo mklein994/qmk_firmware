@@ -42,6 +42,73 @@ RGB                  g_openrgb_direct_mode_colors[RGB_MATRIX_LED_COUNT] = {[0 ..
 static const uint8_t openrgb_rgb_matrix_effects_indexes[]           = {
     1, // OpenRGB always defines "Direct" mode as the first entry
     2, // This one seems to be in the right spot in OpenRGB, so leave it enabled. It also provides a quick way to stop a rogue OpenRGB animation.
+
+#ifndef DISABLE_RGB_MODE_BAND_SPIRAL_VAL
+    3,
+#endif
+#ifndef DISABLE_RGB_MODE_BREATHING
+    4,
+#endif
+#ifndef DISABLE_RGB_MODE_CYCLE_ALL
+    5,
+#endif
+#ifndef DISABLE_RGB_MODE_CYCLE_LEFT_RIGHT
+    6,
+#endif
+#ifndef DISABLE_RGB_MODE_CYCLE_OUT_IN
+    7,
+#endif
+#ifndef DISABLE_RGB_MODE_CYCLE_OUT_IN_DUAL
+    8,
+#endif
+#ifndef DISABLE_RGB_MODE_CYCLE_PINWHEEL
+    9,
+#endif
+#ifndef DISABLE_RGB_MODE_CYCLE_SPIRAL
+    10,
+#endif
+#ifndef DISABLE_RGB_MODE_CYCLE_UP_DOWN
+    11,
+#endif
+#ifndef DISABLE_RGB_MODE_DIGITAL_RAIN
+    12,
+#endif
+#ifndef DISABLE_RGB_MODE_DUAL_BEACON
+    13,
+#endif
+#ifndef DISABLE_RGB_MODE_JELLYBEAN_RAINDROPS
+    14,
+#endif
+#ifndef DISABLE_RGB_MODE_PIXEL_RAIN
+    15,
+#endif
+#ifndef DISABLE_RGB_MODE_RAINBOW_BEACON
+    16,
+#endif
+#ifndef DISABLE_RGB_MODE_RAINBOW_MOVING_CHEVRON
+    17,
+#endif
+#ifndef DISABLE_RGB_MODE_SOLID_REACTIVE_MULTINEXUS
+    18,
+#endif
+#ifndef DISABLE_RGB_MODE_SOLID_REACTIVE_MULTIWIDE
+    19,
+#endif
+#ifndef DISABLE_RGB_MODE_SOLID_REACTIVE_SIMPLE
+    20,
+#endif
+#ifndef DISABLE_RGB_MODE_SOLID_SPLASH
+    21,
+#endif
+#ifndef DISABLE_RGB_MODE_SPLASH
+    22,
+#endif
+#ifndef DISABLE_RGB_MODE_TYPING_HEATMAP
+    23,
+#endif
+#ifndef DISABLE_RGB_MODE_RIVERFLOW
+    24,
+#endif
 };
 static uint8_t raw_hid_buffer[OPENRGB_EPSIZE];
 
