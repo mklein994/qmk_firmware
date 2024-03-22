@@ -157,6 +157,7 @@ void openrgb_get_led_info(uint8_t *data) {
         uint8_t row   = 0;
         uint8_t col   = 0;
         uint8_t found = 0;
+        uint16_t keycode = 0;
 
         for (row = 0; row < MATRIX_ROWS; row++) {
             for (col = 0; col < MATRIX_COLS; col++) {
@@ -173,9 +174,13 @@ void openrgb_get_led_info(uint8_t *data) {
 
         if (col >= MATRIX_COLS || row >= MATRIX_ROWS) {
             raw_hid_buffer[data_idx + 7] = KC_NO;
-        }
-        else {
-            raw_hid_buffer[data_idx + 7] = keycode_at_keymap_location(get_highest_layer(default_layer_state), row, col);
+        } else {
+            keycode = keycode_at_keymap_location(get_highest_layer(default_layer_state), row, col);
+            if (keycode == MO(1 /* MAC_FN */) || keycode == MO(3 /* WIN_FN */)) {
+                raw_hid_buffer[data_idx + 7] = 1; // OpenRGB has this defined as "Key: Right Function"
+            } else {
+                raw_hid_buffer[data_idx + 7] = keycode;
+            }
         }
     }
 }
