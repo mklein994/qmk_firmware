@@ -43,7 +43,11 @@
                 ["Reactive Multiwide", 19],
                 ["Reactive Multinexus", 20],
                 ["Splash", 21],
-                ["Solid Splash", 22]
+                ["Solid Splash", 22],
+                ["Starlight", 23],
+                ["Starlight Dual Sat", 24],
+                ["Starlight Dual Hue", 25],
+                ["Riverflow", 26]
               ]
             },
             {
