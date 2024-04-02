@@ -415,7 +415,7 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
                 payload[len++] = '.';
                 itoa((DEVICE_VER >> 4) & 0xF, (char *)&payload[len++], 16);
                 payload[len++] = '.';
-                itoa((DEVICE_VER >> 4) & 0xF, (char *)&payload[len++], 16);
+                itoa(DEVICE_VER & 0xF, (char *)&payload[len++], 16);
                 payload[len++] = ' ';
                 memcpy(&payload[len], QMK_BUILDDATE, sizeof(QMK_BUILDDATE));
                 len += sizeof(QMK_BUILDDATE);
